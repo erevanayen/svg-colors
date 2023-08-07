@@ -5,7 +5,6 @@ const svgMaster = document.getElementById("svg-master");
 const generateButton = document.getElementById("but-generate");
 const addColorButton = document.getElementById("but-addColor");
 const results = document.getElementById("results");
-const shirtColorPicker = document.getElementById("shirtColor");
 
 // get all paths from the svg
 const paths = svgMaster.querySelectorAll("path");
@@ -34,7 +33,10 @@ function generateColorVariations(colors, length) {
 }
 
 function makeVariations() {
+  results.innerHTML = "";
   const colorVariations = generateColorVariations(threadColors, paths.length);
+
+  const shirtColorPicker = document.getElementById("shirtColor");
   const shirtColor = shirtColorPicker.value;
 
   // create a new svg for each variation
@@ -71,6 +73,11 @@ function appendColor(color) {
   const colorList = document.getElementById("colorList");
   const listItem = document.createElement("li");
   listItem.style.backgroundColor = color;
+
+  // Add a label to each list item
+  const label = document.createElement("label");
+  label.textContent = color;
+  listItem.appendChild(label);
 
   // Add a remove button to each list item
   const removeButton = document.createElement("button");

@@ -8,17 +8,22 @@
   </head>
   <body>
     <h2>SVG Color Combo Generator</h2>
-    <p>version: 0.0.1</p>
-    <input type="color" id="colorPicker" />
-    <button id="but-addColor">Add Color</button>
-    <ul id="colorList"></ul>
-    <div id="shirt-color">
+    <p>version: 1.0.0</p>
+
+    <button id="but-generate">Generate</button>
+    <div id="thread-colors" class="card">
+      <h3>Thread Colors</h3>
+      <input type="color" id="colorPicker" />
+      <button id="but-addColor">Add Color</button>
+      <ul id="colorList"></ul>
+    </div>
+    <div id="shirt-color" class="card">
       <h3>Shirt Color</h3>
       <input type="color" id="shirtColor" />
     </div>
-    <button id="but-generate">Generate</button>
 
-    <section>
+    <section class="card">
+      <h3>Master Design</h3>
       <svg
         id="svg-master"
         width="100%"
@@ -58,6 +63,7 @@
         />
       </svg>
     </section>
+    <h2>Results:</h2>
     <section id="results"></section>
     <script src="./colors.js"></script>
   </body>

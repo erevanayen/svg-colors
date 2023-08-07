@@ -1,3 +1,51 @@
+body {
+  background-color: #465366;
+  font-family: "Roboto Mono";
+  font-size: 16px;
+}
+
+.card {
+  border-radius: 0.5rem;
+  padding: 1rem;
+  margin-bottom: 1rem;
+
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.404);
+}
+
+button:hover,
+input:hover {
+  cursor: pointer;
+}
+
+button {
+  font-family: "Roboto Mono";
+  text-transform: uppercase;
+}
+
+#but-generate {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+#colorList {
+  padding: 0px;
+  max-width: 300px;
+}
+
+#colorList li {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 0.5rem;
+  padding: 0.5rem 1rem;
+}
+
+#colorList li label {
+  color: #fff;
+  mix-blend-mode: difference;
+}
+
 #svg-master {
   max-width: 500px;
   aspect-ratio: 681/567;
@@ -6,7 +54,11 @@
 #results {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
+  gap: 0.5rem;
+}
+
+#results svg {
+  border-radius: 0.5rem;
 }
 
 /* increase the amount of columns to 5 on screens wider than 1920px */
