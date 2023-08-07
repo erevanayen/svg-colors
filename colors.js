@@ -1,9 +1,11 @@
-const availableColors = ["#000000", "#fb00ff", "#fff900"];
-const shirtColor = "#444444";
+const presetColors = ["#000000", "#fb00ff", "#fff900", "#00f1e1", "#cc1c1c"];
+const threadColors = [];
 
 const svgMaster = document.getElementById("svg-master");
 const generateButton = document.getElementById("but-generate");
+const addColorButton = document.getElementById("but-addColor");
 const results = document.getElementById("results");
+const shirtColorPicker = document.getElementById("shirtColor");
 
 // get all paths from the svg
 const paths = svgMaster.querySelectorAll("path");
@@ -32,10 +34,8 @@ function generateColorVariations(colors, length) {
 }
 
 function makeVariations() {
-  const colorVariations = generateColorVariations(
-    availableColors,
-    paths.length
-  );
+  const colorVariations = generateColorVariations(threadColors, paths.length);
+  const shirtColor = shirtColorPicker.value;
 
   // create a new svg for each variation
   for (const newVar of colorVariations) {
@@ -60,4 +60,36 @@ function makeVariations() {
   }
 }
 
+function addColor() {
+  const colorPicker = document.getElementById("colorPicker");
+  const color = colorPicker.value;
+
+  appendColor(color);
+}
+
+function appendColor(color) {
+  const colorList = document.getElementById("colorList");
+  const listItem = document.createElement("li");
+  listItem.style.backgroundColor = color;
+
+  // Add a remove button to each list item
+  const removeButton = document.createElement("button");
+  removeButton.textContent = "Remove";
+  removeButton.onclick = function () {
+    colorList.removeChild(listItem);
+    // remove the color from available colors
+    threadColors.splice(threadColors.indexOf(color), 1);
+  };
+  listItem.appendChild(removeButton);
+
+  colorList.appendChild(listItem);
+
+  threadColors.push(color);
+}
+
+presetColors.forEach((color) => {
+  appendColor(color);
+});
+
+addColorButton.addEventListener("click", addColor);
 generateButton.addEventListener("click", makeVariations);
