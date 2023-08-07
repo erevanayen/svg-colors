@@ -1,0 +1,31 @@
+#svg-master {
+  max-width: 500px;
+  aspect-ratio: 681/567;
+}
+
+#results {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+/* increase the amount of columns to 5 on screens wider than 1920px */
+@media screen and (min-width: 1440px) {
+  #results {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+/* set the amount of columns to 2 on screens narrower than 500px */
+@media screen and (max-width: 700px) {
+  #results {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* set the amount of columns to 1 on screens narrower than 300px */
+@media screen and (max-width: 400px) {
+  #results {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
