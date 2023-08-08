@@ -1,7 +1,8 @@
 body {
-  background-color: #465366;
+  background-color: #363636;
   font-family: "Roboto Mono";
   font-size: 16px;
+  color: #dadada;
 }
 
 .card {
@@ -12,6 +13,16 @@ body {
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.404);
 }
 
+.card h3 {
+  margin-top: 0px;
+}
+
+.two-cols {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
 button:hover,
 input:hover {
   cursor: pointer;
@@ -20,10 +31,21 @@ input:hover {
 button {
   font-family: "Roboto Mono";
   text-transform: uppercase;
+
+  border-radius: 0.5rem;
+  padding: 0.25rem 0.5rem;
+  background: none;
+  color: #dadada;
+  border: 2px solid #dadada;
+}
+
+button:hover {
+  background-color: #dadada;
+  color: #363636;
 }
 
 #but-generate {
-  font-size: 2rem;
+  font-size: 1.5rem;
   margin-bottom: 1rem;
 }
 #colorList {
@@ -39,6 +61,20 @@ button {
 
   margin-bottom: 0.5rem;
   padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+}
+
+#colorList li button {
+  background: none;
+  color: #fff;
+  mix-blend-mode: difference;
+
+  border: 2px solid #fff;
+}
+
+#colorList li button:hover {
+  background-color: #fff;
+  color: #000;
 }
 
 #colorList li label {
