@@ -22,7 +22,10 @@ function generateColorVariations(colors, length) {
     }
 
     for (const color of colors) {
-      generateVariations(currentVariation.concat(color), remainingLength - 1);
+      generateVariations(
+        currentVariation.concat(color.value),
+        remainingLength - 1
+      );
     }
   }
 
@@ -74,45 +77,69 @@ function addColor() {
   appendColor(color);
 }
 
+function editColor(colorId, newColor, listItem) {
+  console.log("edit color", colorId);
+  // update the color object in threadColors array by id
+  const index = threadColors.findIndex((color) => color.id === colorId);
+
+  if (index <= -1) return;
+
+  threadColors[index].value = newColor;
+  listItem.style.backgroundColor = newColor;
+  listItem.querySelector("label").textContent = newColor;
+}
+
+function removeColor(colorId, listItem, colorList) {
+  console.log("remove color", colorId);
+  // remove the color object from threadColors array by id
+  const index = threadColors.findIndex((color) => color.id === colorId);
+
+  if (index <= -1) return;
+
+  threadColors.splice(index, 1);
+  colorList.removeChild(listItem);
+  updateStats();
+}
+
 function appendColor(color) {
+  // add color object to available colors
+  const newColorId = threadColors.length;
+  threadColors.push({ id: newColorId, value: color });
+
   const colorList = document.getElementById("colorList");
   const listItem = document.createElement("li");
   listItem.style.backgroundColor = color;
 
-  // Add a label to each list item
+  // Add a label to list item
   const label = document.createElement("label");
   label.textContent = color;
   listItem.appendChild(label);
 
-  // Add a remove button to each list item
+  // Add an edit button to list item
+  const editInput = document.createElement("input");
+  editInput.type = "color";
+  editInput.value = color;
+  editInput.oninput = () => editColor(newColorId, editInput.value, listItem);
+  listItem.appendChild(editInput);
+
+  // Add a remove button to list item
   const removeButton = document.createElement("button");
   removeButton.textContent = "Remove";
-  removeButton.onclick = function () {
-    colorList.removeChild(listItem);
-    // remove the color from available colors
-    threadColors.splice(threadColors.indexOf(color), 1);
-    updateStats(
-      threadColors.length,
-      pathsWithFill.length + pathsWithOutline.length
-    );
-  };
+  removeButton.onclick = () => removeColor(newColorId, listItem, colorList);
   listItem.appendChild(removeButton);
 
+  // Add the color element to the lost
   colorList.appendChild(listItem);
 
-  threadColors.push(color);
-  updateStats(
-    threadColors.length,
-    pathsWithFill.length + pathsWithOutline.length
-  );
+  updateStats();
 }
 
-function updateStats(colorsLength, pathsAmount) {
+function updateStats() {
   const stats = document.getElementById("stats");
+  const variationCount =
+    threadColors.length ** (pathsWithFill.length + pathsWithOutline.length);
 
-  stats.innerHTML = `This will generate ${
-    colorsLength ** pathsAmount
-  } variations.`;
+  stats.innerHTML = `This will generate ${variationCount} variations.`;
 }
 
 function handleSVGInput(event) {
