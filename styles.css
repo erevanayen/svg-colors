@@ -84,7 +84,7 @@ button:hover {
   mix-blend-mode: difference;
 }
 
-#svg-master {
+#svg-master, #svg-master2 {
   max-width: 500px;
   aspect-ratio: 681/567;
 }

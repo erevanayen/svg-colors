@@ -2,15 +2,57 @@ const presetColors = ["#000000", "#fb00ff", "#fff900"];
 const threadColors = [];
 
 const svgMaster = document.getElementById("svg-master");
+const svgMaster2 = document.getElementById("svg-master2");
 const generateButton = document.getElementById("but-generate");
 const addColorButton = document.getElementById("but-addColor");
 const results = document.getElementById("results");
 const fileInput = document.getElementById("fileInput");
 
+// buttons for setting master file
+const butClassic = document.getElementById("button-classic");
+const butSwirl = document.getElementById("button-swirl");
+
 var usedSVG = null;
 var paths = [];
 var pathsWithFill = [];
 var pathsWithOutline = [];
+
+// master type enum
+const masterType = {
+  CLASSIC: "classic",
+  SWIRL: "swirl",
+};
+
+function updateMasterViewport(type) {
+  switch (type) {
+    case masterType.CLASSIC:
+      svgMaster.style.display = "block";
+      svgMaster2.style.display = "none";
+      break;
+    case masterType.SWIRL:
+      svgMaster.style.display = "none";
+      svgMaster2.style.display = "block";
+      break;
+    default:
+      svgMaster.style.display = "block";
+      svgMaster2.style.display = "none";
+  }
+}
+
+function switchMasterSVG(type) {
+  switch (type) {
+    case masterType.CLASSIC:
+      updateMasterSVG(svgMaster);
+      break;
+    case masterType.SWIRL:
+      updateMasterSVG(svgMaster2);
+      break;
+    default:
+      updateMasterSVG(svgMaster);
+  }
+
+  updateMasterViewport(type);
+}
 
 function generateColorVariations(colors, length) {
   const variations = [];
@@ -183,6 +225,7 @@ function updateMasterSVG(newSVG) {
 }
 
 updateMasterSVG(svgMaster);
+updateMasterViewport(masterType.CLASSIC);
 
 presetColors.forEach((color) => {
   appendColor(color);
@@ -191,3 +234,6 @@ presetColors.forEach((color) => {
 addColorButton.addEventListener("click", addColor);
 generateButton.addEventListener("click", makeVariations);
 fileInput.addEventListener("change", handleSVGInput);
+// buttons for setting master file
+butClassic.addEventListener("click", () => switchMasterSVG(masterType.CLASSIC));
+butSwirl.addEventListener("click", () => switchMasterSVG(masterType.SWIRL));
